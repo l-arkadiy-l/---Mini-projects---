@@ -2,7 +2,6 @@ import sys
 
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from qt import Ui_MainWindow
-import os.path
 
 
 class Main(QMainWindow, Ui_MainWindow):
@@ -12,35 +11,22 @@ class Main(QMainWindow, Ui_MainWindow):
         self.setup()
 
     def setup(self):
-        self.pushButton_create.clicked.connect(self.create_file)
+        self.pushButton_create.clicked.connect(self.create_save_file)
         self.pushButton_open.clicked.connect(self.open_file)
-        self.pushButton_save.clicked.connect(self.save_file)
+        self.pushButton_save.clicked.connect(self.create_save_file)
 
-    def create_file(self):
+    def create_save_file(self):
         if self.lineEdit.text():
             title = self.lineEdit.text()
-            text = self.plainTextEdit.toPlainText()
-            if not os.path:
-                with open(title, 'w') as f:
-                    f.write(text)
-                self.lineEdit.clear()
-                self.plainTextEdit.clear()
+            text = self.texteidt.toPlainText()
+            with open(title, 'w') as f:
+                f.write(text)
 
     def open_file(self):
         if self.lineEdit.text():
             title = self.lineEdit.text()
             with open(title) as f:
-                self.plainTextEdit.setPlainText(f.read())
-
-    def save_file(self):
-        if self.lineEdit.text():
-            title = self.lineEdit.text()
-            text = self.plainTextEdit.toPlainText()
-            if os.path:
-                with open(title, 'w') as f:
-                    f.write(text)
-                self.lineEdit.clear()
-                self.plainTextEdit.clear()
+                self.texteidt.setPlainText(f.read())
 
 
 if __name__ == '__main__':
