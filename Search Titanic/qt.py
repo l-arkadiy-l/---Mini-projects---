@@ -40,15 +40,6 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.action_brush = QtWidgets.QAction(MainWindow)
-        self.action_brush.setObjectName("action_brush")
-        self.action_line = QtWidgets.QAction(MainWindow)
-        self.action_line.setObjectName("action_line")
-        self.action_circle = QtWidgets.QAction(MainWindow)
-        self.action_circle.setObjectName("action_circle")
-        self.action_clear = QtWidgets.QAction(MainWindow)
-        self.action_clear.setObjectName("action_clear")
-
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -56,10 +47,6 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "строка для поиска:"))
-        self.action_brush.setText(_translate("MainWindow", "Кисть"))
-        self.action_line.setText(_translate("MainWindow", "Линия"))
-        self.action_circle.setText(_translate("MainWindow", "Окружность"))
-        self.action_clear.setText(_translate("MainWindow", "Очистить"))
 
 
 if __name__ == "__main__":
