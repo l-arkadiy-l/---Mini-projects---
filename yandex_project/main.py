@@ -53,11 +53,9 @@ class Show_title_body(QWidget, Ui_Form_title_body):
         con = sqlite3.connect('dates.db')
         data_dates = con.cursor()
         self.btn = title
-        print(title.text())
         self.id_date = \
         data_dates.execute(f'SELECT rowid FROM dates WHERE title = "{title.text()}" AND date = "{date}"').fetchone()[0]
         data_dates.execute(f'SELECT * FROM dates WHERE title = "{title.text()}" AND date = "{date}"')
-        print(self.id_date)
         date_note = data_dates.fetchall()
         for date, title_, message, boolean in date_note:
             if title.text() == title_:
@@ -109,7 +107,6 @@ class Show_Ads(QWidget, Ui_Form_ads):
         messagebox = QMessageBox.question(self, 'Delete notes?', 'Вы хотиту удалить все заметки на эту дату?',
                                           QMessageBox.Yes | QMessageBox.No)
         if messagebox == QMessageBox.Yes:
-            print('yes')
             con = sqlite3.connect('dates.db')
             data_dates = con.cursor()
             data_dates.execute(f'DELETE from dates WHERE date = "{date}"')
@@ -136,7 +133,6 @@ class Director_Window(QMainWindow, Ui_MainWindow):
         title = self.lineEdit.text()
         body = self.plainTextEdit.toPlainText()
         date = self.calendarWidget.selectedDate().toString()
-        print(self.boolean)
         if not data_dates.execute(
                 f'SELECT * FROM dates WHERE date = "{date}" AND title = "{title}"').fetchone() and self.lineEdit.text() \
                 and self.plainTextEdit.toPlainText():
