@@ -59,6 +59,7 @@ class Create_Movie(QWidget, Ui_add_film):
                         self.tableWidget.setItem(i, j, QTableWidgetItem(str(l_a[0])))
                     else:
                         self.tableWidget.setItem(i, j, QTableWidgetItem(str(row[j])))
+            self.hide()
         else:
             self.label_5.setText('Вы неправильно заполнили поля!')
 
@@ -106,6 +107,7 @@ class ChangeMovie(QWidget, Ui_edit_film):
         for i in range(5):
             self.tableWidget.setItem(self.table_id, i, QTableWidgetItem(str(list_all[i])))
         self.tableWidget.update()
+        self.hide()
 
 
 class Create_Genre(QWidget, Ui_add_genre):
@@ -129,6 +131,7 @@ class Create_Genre(QWidget, Ui_add_genre):
         for i, row in enumerate(list_genres):
             for j in range(2):
                 self.tableWidget_2.setItem(i, j, QTableWidgetItem(str(row[j])))
+        self.hide()
 
 
 class EditGenre(QWidget, Ui_edit_genre):
@@ -153,7 +156,7 @@ class EditGenre(QWidget, Ui_edit_genre):
         ]
         for i in range(2):
             self.tableWidget_2.setItem(self.table_id, i, QTableWidgetItem(str(list_all[i])))
-
+        self.hide()
 
 class Example(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -216,8 +219,8 @@ class Example(QMainWindow, Ui_MainWindow):
         list_genres = self.cur.execute('''SELECT rowid, title FROM genres''').fetchall()
         for i, row in enumerate(list_genres):
             if i == self.tableWidget_2.currentRow():
-                self.cur.execute(f'''DELETE FROM genres WHERE id = {row[0]}''')
                 self.cur.execute(f'''DELETE FROM films WHERE genre = {row[0]}''')
+                self.cur.execute(f'''DELETE FROM genres WHERE id = {row[0]}''')
                 self.con.commit()
                 list_genres = self.cur.execute('''SELECT rowid, title FROM genres''').fetchall()
                 self.tableWidget_2.setColumnCount(2)
@@ -228,6 +231,7 @@ class Example(QMainWindow, Ui_MainWindow):
                     for j in range(2):
                         print(row)
                         self.tableWidget_2.setItem(i, j, QTableWidgetItem(str(row[j])))
+                self.initUI()
                 break
 
     def create_movie(self):
