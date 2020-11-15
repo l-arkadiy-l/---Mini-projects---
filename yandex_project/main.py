@@ -19,6 +19,7 @@ except sqlite3.OperationalError:
     pass
 
 
+# редактирование записи
 class Edit_Form(QWidget, Ui_Edit_Form):
     def __init__(self, btn, date_id, parent=None):
         parent.hide()
@@ -33,6 +34,7 @@ class Edit_Form(QWidget, Ui_Edit_Form):
         self.textEdit.setText(text[-2])
         self.pushButton.clicked.connect(lambda: self.update_entry(date_id))
 
+    # само редактирование
     def update_entry(self, date_id):
         con = sqlite3.connect('dates.db')
         cur = con.cursor()
@@ -42,8 +44,10 @@ class Edit_Form(QWidget, Ui_Edit_Form):
         con.commit()
         cur.execute(f'SELECT * FROM dates WHERE rowid = {date_id}')
         self.btn.setText(self.lineEdit.text())
+        self.hide()
 
 
+# показываю запись
 class Show_title_body(QWidget, Ui_Form_title_body):
     def __init__(self, title, date):
         super(Show_title_body, self).__init__()
@@ -53,10 +57,13 @@ class Show_title_body(QWidget, Ui_Form_title_body):
         con = sqlite3.connect('dates.db')
         data_dates = con.cursor()
         self.btn = title
+        # для фильтрации записи по id
         self.id_date = \
-        data_dates.execute(f'SELECT rowid FROM dates WHERE title = "{title.text()}" AND date = "{date}"').fetchone()[0]
+            data_dates.execute(
+                f'SELECT rowid FROM dates WHERE title = "{title.text()}" AND date = "{date}"').fetchone()[0]
         data_dates.execute(f'SELECT * FROM dates WHERE title = "{title.text()}" AND date = "{date}"')
         date_note = data_dates.fetchall()
+        # Показ записи
         for date, title_, message, boolean in date_note:
             if title.text() == title_:
                 self.label_title.setText(title.text())
@@ -64,11 +71,13 @@ class Show_title_body(QWidget, Ui_Form_title_body):
             self.message = message
         self.pushButton_pen.clicked.connect(self.edit_entry)
 
+    # редактирование
     def edit_entry(self):
         self.edit = Edit_Form(self.btn, self.id_date, self)
         self.edit.show()
 
 
+# все записи за день
 class Show_Ads(QWidget, Ui_Form_ads):
     def __init__(self, date):
         super(Show_Ads, self).__init__()
@@ -82,9 +91,11 @@ class Show_Ads(QWidget, Ui_Form_ads):
         # date base
         con = sqlite3.connect('dates.db')
         data_dates = con.cursor()
+        # фильтрация по дню
         data_dates.execute(f'SELECT * FROM dates WHERE date = "{date}" ORDER BY star')
         for date_, title, message, boolean in reversed(data_dates.fetchall()):
             self.btn = QPushButton(title, self)
+            # ставим отмеченные (желтые) записи на верх списка
             if boolean == 'True':
                 self.btn.setStyleSheet(
                     'QPushButton{\n	background-color: yellow;\n	border: 1px solid; padding: 5px 0;\n}'
@@ -98,11 +109,12 @@ class Show_Ads(QWidget, Ui_Form_ads):
             self.btn.clicked.connect(lambda: self.show_ads(self.btn, date))
             self.verticalLayout.addWidget(self.btn)
 
+    # показ записи
     def show_ads(self, title, date):
-
         self.show_title_body = Show_title_body(self.sender(), date)
         self.show_title_body.show()
 
+    # очистка всех записей за определенный день
     def delete_date(self, date):
         messagebox = QMessageBox.question(self, 'Delete notes?', 'Вы хотиту удалить все заметки на эту дату?',
                                           QMessageBox.Yes | QMessageBox.No)
@@ -117,6 +129,7 @@ class Show_Ads(QWidget, Ui_Form_ads):
         self.show()
 
 
+# главное окно
 class Director_Window(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(Director_Window, self).__init__()
@@ -127,12 +140,14 @@ class Director_Window(QMainWindow, Ui_MainWindow):
         self.pushButton_star.clicked.connect(self.change_color_star)
         self.boolean = 'False'
 
+    # создание новой записи
     def create_ad(self):
         con = sqlite3.connect('dates.db')
         data_dates = con.cursor()
         title = self.lineEdit.text()
         body = self.plainTextEdit.toPlainText()
         date = self.calendarWidget.selectedDate().toString()
+        # проверяем нет ли уже такой записи в базе данных
         if not data_dates.execute(
                 f'SELECT * FROM dates WHERE date = "{date}" AND title = "{title}"').fetchone() and self.lineEdit.text() \
                 and self.plainTextEdit.toPlainText():
@@ -154,6 +169,7 @@ class Director_Window(QMainWindow, Ui_MainWindow):
         self.ads = Show_Ads(date)
         self.ads.show()
 
+    # отмечаем запись
     def change_color_star(self):
         if not self.pushButton_star.styleSheet():
             self.pushButton_star.setStyleSheet(
