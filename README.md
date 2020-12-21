@@ -1,5 +1,5 @@
 # PYQT-EXAMPLES
-> In this repo i create my own projects and show this projects for you.
+> In this repo i create my own projects and show this projects for you!
 
 Best projects:
 1. > [Text Editor](https://github.com/l-arkadiy-l/PYQT-EXAMPLES/tree/main/Текстовый%20редактор%201.0) - project that helps with create, edit and open files.
