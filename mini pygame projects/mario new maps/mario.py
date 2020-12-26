@@ -108,7 +108,11 @@ if __name__ == '__main__':
     clock = pg.time.Clock()
     running = True
     draw_area = False
-    player, level_x, level_y = generate_level(load_level('map1.txt'))
+    try:
+        player, level_x, level_y = generate_level(load_level(input()))
+    except FileNotFoundError:
+        print('Походу случился error')
+        exit(0)
     while running:
         for event in pg.event.get():
             if event.type == pg.QUIT:
