@@ -74,7 +74,7 @@ def start_screen(filedir):
                   "Если в правилах несколько строк,",
                   "приходится выводить их построчно"]
 
-    fon = pg.transform.scale(pg.image.load('{}/fon.jpg'.format(filedir)), (WIDTH, HEIGHT))
+    fon = pg.transform.scale(pg.image.load('{}/fon.jpg'.format(filedir)), (width, height))
     screen.blit(fon, (0, 0))
     font = pg.font.Font(None, 30)
     text_coord = 50
@@ -117,6 +117,7 @@ class Camera:
         self.dx = -(target.rect.x + target.rect.w // 2 - width // 2)
         self.dy = -(target.rect.y + target.rect.h // 2 - height // 2)
 
+
 SIZE = width, height = (550, 500)
 if __name__ == '__main__':
     pg.init()
@@ -125,7 +126,7 @@ if __name__ == '__main__':
     running = True
     draw_area = False
     try:
-        player, level_x, level_y = generate_level(load_level(input()))
+        player, level_x, level_y = generate_level(load_level('map.txt'))
     except FileNotFoundError:
         print('Походу случился error')
         exit(0)
@@ -142,11 +143,13 @@ if __name__ == '__main__':
         if not draw_area:
             start_screen(FILEDIR)
         else:
-
             tiles_group.draw(screen)
             # all_sprites.draw(screen)
             player_group.draw(screen)
+            for i in all_sprites:
+                camera.apply(i)
+            camera.update(player)
 
-        clock.tick(10)
+        clock.tick(100)
         pg.display.flip()
     pg.quit()
