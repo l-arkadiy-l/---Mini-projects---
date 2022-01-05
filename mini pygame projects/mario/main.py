@@ -108,7 +108,7 @@ if __name__ == '__main__':
     clock = pg.time.Clock()
     running = True
     draw_area = False
-    player, level_x, level_y = generate_level(load_level('map1.txt'))
+    player, level_x, level_y = generate_level(load_level('map.txt'))
     while running:
         for event in pg.event.get():
             if event.type == pg.QUIT:

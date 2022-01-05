@@ -69,10 +69,10 @@ class Player(pg.sprite.Sprite):
 
 
 def start_screen(filedir):
-    intro_text = ["ЗАСТАВКА", "",
-                  "Правила игры",
-                  "Если в правилах несколько строк,",
-                  "приходится выводить их построчно"]
+    intro_text = ["Click", "",
+                  "Click the window!!",
+                  "Click the window!!",
+                  ]
 
     fon = pg.transform.scale(pg.image.load('{}/fon.jpg'.format(filedir)), (width, height))
     screen.blit(fon, (0, 0))

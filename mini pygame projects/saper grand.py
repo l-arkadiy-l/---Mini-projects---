@@ -69,8 +69,8 @@ class Board:
 
 if __name__ == '__main__':
     running = True
-    SIZE = 400
-    screen = pygame.display.set_mode((SIZE, SIZE))
+    SIZE_X, SIZE_Y = 170, 230
+    screen = pygame.display.set_mode((SIZE_X, SIZE_Y))
     fps = 50  # количество кадров в секунду
     clock = pygame.time.Clock()
     board = Board(5, 7)

@@ -94,10 +94,10 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "Редактор файлов"))
-        self.pushButton_2.setText(_translate("MainWindow", "Сохранить файл"))
-        self.pushButton_3.setText(_translate("MainWindow", "Создать файл"))
-        self.pushButton.setText(_translate("MainWindow", "Открыть файл"))
+        self.label.setText(_translate("MainWindow", "Editer -> "))
+        self.pushButton_2.setText(_translate("MainWindow", "Save file"))
+        self.pushButton_3.setText(_translate("MainWindow", "Create file"))
+        self.pushButton.setText(_translate("MainWindow", "Open file"))
 
 
 if __name__ == "__main__":

@@ -20,9 +20,9 @@ class Main(QMainWindow, Ui_MainWindow):
         try:
             with open(file) as f:
                 self.plainTextEdit.setPlainText(f.read())
-            self.label.setText('Редактор файлов')
+            self.label.setText('Editer -> ')
         except Exception:
-            self.label.setText('Такой файл не найден')
+            self.label.setText("We can't find this file, try edit path")
 
     def save_file(self):
         file = self.lineEdit.text()
@@ -31,13 +31,13 @@ class Main(QMainWindow, Ui_MainWindow):
             with open(file, 'w') as f:
                 f.write(self.plainTextEdit.toPlainText())
         except Exception:
-            self.label.setText('Такой файл не найден')
+            self.label.setText("We can't find this file, try edit path")
 
     def create_file(self):
         file = self.lineEdit.text()
         with open(file, 'w') as f:
             f.write(self.plainTextEdit.toPlainText())
-        self.label.setText('Редактор файлов')
+        self.label.setText('Editer -> ')
 
 
 if __name__ == '__main__':
