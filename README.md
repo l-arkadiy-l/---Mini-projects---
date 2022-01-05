@@ -1,4 +1,4 @@
-# PYQT-EXAMPLES
+# PYQT-Projects
 > In this repo i create my own projects and show this projects for you!
 
 Best projects:
