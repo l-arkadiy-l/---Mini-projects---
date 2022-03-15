@@ -89,10 +89,6 @@ class Ui_MainWindow(object):
         font.setFamily("Segoe Print")
         font.setPointSize(13)
         self.pushButton_star.setFont(font)
-        self.pushButton_star.setStyleSheet("QPushButton:hover{\n"
-"    background-color: yellow;\n"
-"    border: 1px solid;\n"
-"}")
         self.pushButton_star.setObjectName("pushButton_star")
         self.gridLayout_3.addWidget(self.pushButton_star, 2, 1, 2, 2)
         self.gridLayout.addLayout(self.gridLayout_3, 0, 2, 1, 1)
