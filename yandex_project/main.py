@@ -138,7 +138,7 @@ class Director_Window(QMainWindow, Ui_MainWindow):
         self.pushButton.clicked.connect(self.create_ad)
         self.pushButton_3.clicked.connect(lambda: self.show_ads(self.calendarWidget.selectedDate().toString()))
         self.pushButton_star.clicked.connect(self.change_color_star)
-        self.boolean = 'False'
+        self.boolean = False
 
     # создание новой записи
     def create_ad(self):
@@ -157,7 +157,7 @@ class Director_Window(QMainWindow, Ui_MainWindow):
             self.lineEdit.clear()
             self.plainTextEdit.clear()
             self.pushButton_star.setStyleSheet('')
-            self.boolean = 'False'
+            self.boolean = False
             # change statusbar
             self.statusbar.setStyleSheet('background-color: green;')
             self.statusbar.showMessage('Заметка создана')
@@ -171,13 +171,13 @@ class Director_Window(QMainWindow, Ui_MainWindow):
 
     # отмечаем запись
     def change_color_star(self):
-        if not self.pushButton_star.styleSheet():
+        if not self.boolean:
             self.pushButton_star.setStyleSheet(
                 'QPushButton{\n	background-color: yellow;\n	border: 1px solid; padding: 0 31px\n}')
-            self.boolean = 'True'
+            self.boolean = True
         else:
             self.pushButton_star.setStyleSheet('')
-            self.boolean = 'False'
+            self.boolean = False
 
 
 if __name__ == '__main__':
